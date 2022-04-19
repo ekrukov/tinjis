@@ -47,3 +47,24 @@ and the app should build and start running (after a few minutes when gradle does
 1. We will use your scripts to deploy both services to our Kubernetes cluster.
 2. Run the pay endpoint on Antaeus to try and pay the invoices using your service.
 3. Fetch all the invoices from Antaeus and confirm that roughly 50% (remember, your app should randomly fail on some of the invoices) of them will have status "PAID".
+
+## Discussion questions and answers
+First, my service and helm chart don't ready even for development purposes. 
+They only implement minimal amount of action that this challenge requires.
+In real world it will be much complicated including:
+ - additional resources like hpa, service monitor, ingress etc.
+ - more reliable and structured application code
+ - CI settings for image building and testing
+
+Second one - this application has small problems I want to highlight :-)
+ - repository name is different from application one. It leads to some confusion about repo structure.
+ - "How we'll test the solution" part of readme don't explain correctly application behavior.
+It doesn't create new invoices within pay action, it tries to pay unpaid ones that were initial created and already have some paid status distribution. 
+So after some tries it will respond with all invoices in PAID status and state becomes permanent and that a little bit confusing. 
+
+And now answers:
+1. It needs any CD system. Maybe specific like ArgoCD, Flux etc. Perhaps custom like extended CI.
+2. Developers shouldn't have access to deploy applications. It should be implemented with CD system and GitOPS flow.
+Then we only need to restrict access to different application's repositories
+3. There are few possibilities like dedicated namespaces or network policies
+
