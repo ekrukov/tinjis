@@ -1,0 +1,17 @@
+replicaCount: 1
+
+image:
+  repository: 'ghcr.io/ekrukov/antaeus'
+  pullPolicy: IfNotPresent
+  tag: "1.0.0"
+
+env:
+  - name: 'PAYMENT_PROVIDER_ENDPOINT'
+    value: 'http://pleo:9000/pay'
+
+service:
+  type: ClusterIP
+  port: 8000
+  targetPort: 8000
+
+resources: {}
