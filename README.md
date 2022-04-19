@@ -62,6 +62,10 @@ Second one - this application has small problems I want to highlight :-)
 It doesn't create new invoices within pay action, it tries to pay unpaid ones that were initial created and already have some paid status distribution. 
 So after some tries it will respond with all invoices in PAID status and state becomes permanent and that a little bit confusing. 
 
+Third one - I prefer to have different repo for each application, so I've created one for my payment service.
+https://github.com/ekrukov/pleo
+If task requires do it in this repo - it should be written explicitly.
+
 And now answers:
 1. It needs any CD system. Maybe specific like ArgoCD, Flux etc. Perhaps custom like extended CI.
 2. Developers shouldn't have access to deploy applications. It should be implemented with CD system and GitOPS flow.
